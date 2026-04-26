@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ display_name }} — skipthe.com{% endblock %}
+{% block description %}Hyperlocal updates for {{ display_name }} — curated, free, no noise.{% endblock %}
+{% block masthead_title %}{{ display_name }} Signal{% endblock %}
+{% block masthead_tagline %}Useful local updates. No noise.{% endblock %}
+{% block content %}
+  <div class="disclaimer">
+    Items below are surfaced by an AI moderator from public sources. Mistakes happen — see the
+    <a href="/contact">contact page</a> if something needs attention.
+  </div>
+
+  <nav class="cats" aria-label="Categories">
+    <a href="/{{ neighborhood_key }}/" class="{% if active_category == 'all' %}active{% endif %}">All</a>
+    {% for cat_key, cat_label in categories %}
+      <a href="/{{ neighborhood_key }}/{{ cat_key }}" class="{% if active_category == cat_key %}active{% endif %}">{{ cat_label }}</a>
+    {% endfor %}
+  </nav>
+
+  {% if items %}
+    {% for item in items %}
+      <article class="card">
+        <div class="tags">
+          {% if item.category %}<span class="tag tag-cat">{{ item.category }}</span>{% endif %}
+          {% if item.credibility %}<span class="tag tag-cred {% if item.credibility == 'unverified' %}unverified{% endif %}">{{ item.credibility }}</span>{% endif %}
+        </div>
+        <h2><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h2>
+        {% if item.ai_summary %}<p class="summary">{{ item.ai_summary }}</p>{% endif %}
+        <div class="meta">
+          {% if item.source_name %}Source: {{ item.source_name }} · {% endif %}
+          {{ item.created_at | time_ago }} ·
+          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">Read original →</a>
+        </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty">Nothing here yet for this category. Check back soon.</p>
+  {% endif %}
+
+  <div class="rss-row">
+    Subscribe via RSS:
+    <a href="/feeds/{{ neighborhood_key }}/all.xml">All updates</a>
+    {% for cat_key, cat_label in categories %}
+      · <a href="/feeds/{{ neighborhood_key }}/{{ cat_key }}.xml">{{ cat_label }}</a>
+    {% endfor %}
+  </div>
+{% endblock %}

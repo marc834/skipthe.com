@@ -1,0 +1,34 @@
+neighborhoods:
+  nocatee:
+    display_name: "Nocatee, FL"
+    keywords:
+      - nocatee
+      - ponte vedra
+      - st. johns county
+      - st johns county
+      - palm valley
+      - 32081
+      - 32082
+      - nocatee parkway
+      - crosswater
+      - town center
+categories:
+  crime-safety:
+    keywords: [sheriff, police, arrest, crash, fire, rescue, missing, fraud, safety, emergency]
+  development:
+    keywords: [zoning, planning, development, permit, construction, rezoning, subdivision, traffic, road]
+  schools:
+    keywords: [school, district, student, teacher, board, education, bus]
+  business:
+    keywords: [restaurant, opening, closing, business, chamber, store, retail]
+  events:
+    keywords: [event, festival, meeting, workshop, concert, market]
+feeds:
+  - name: "St. Johns County News"
+    url: "https://www.sjcfl.us/news/"
+    type: "webpage"
+    credibility: "official"
+  - name: "St. Johns County School District"
+    url: "https://www.stjohns.k12.fl.us/news/"
+    type: "webpage"
+    credibility: "official"

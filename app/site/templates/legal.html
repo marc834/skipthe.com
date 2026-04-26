@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Legal — skipthe.com{% endblock %}
+{% block masthead_title %}Legal{% endblock %}
+{% block masthead_tagline %}Terms, privacy, attribution.{% endblock %}
+{% block content %}
+  <article class="prose">
+    <h2>Attribution</h2>
+    <p>
+      skipthe.com aggregates links to publicly available news items. Every item on this site
+      links back to its original publisher. We do not republish article bodies — only the
+      headline (as written by the source), a short neutral summary written by an AI moderator,
+      and metadata identifying the source.
+    </p>
+
+    <h2>Take-down requests</h2>
+    <p>
+      If you are the original publisher of an item, or a person named in one, and you would
+      like an item removed from this site, please use the <a href="/contact">contact form</a>.
+      We aim to respond within 48 hours.
+    </p>
+
+    <h2>No warranty</h2>
+    <p>
+      Items are surfaced by an automated AI moderator. We do not guarantee accuracy,
+      completeness, or timeliness. Always verify with the original source before acting on
+      anything you read here. Items labeled <em>unverified</em> come from sources we cannot
+      independently confirm.
+    </p>
+
+    <h2>Privacy</h2>
+    <p>
+      We do not require accounts. We do not run analytics or tracking scripts. Server access
+      logs (standard nginx logs) are kept for operational purposes and rotated regularly.
+      The <a href="/contact">contact form</a> sends your message to the site operator and is
+      processed by a third-party form-to-email provider; review their privacy notice if you
+      submit personal information.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Reach the site operator via the <a href="/contact">contact form</a>.
+    </p>
+  </article>
+{% endblock %}

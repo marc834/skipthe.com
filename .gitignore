@@ -1,0 +1,27 @@
+# secrets
+.env
+
+# python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# generated content
+data/items.sqlite3
+data/items.sqlite3-*
+data/feeds/
+data/removals.log
+
+# generated site HTML (templates are tracked; rendered output is not)
+app/site/index.html
+app/site/about.html
+app/site/contact.html
+app/site/legal.html
+app/site/*/
+!app/site/templates/
+
+# editor / OS
+.idea/workspace.xml
+.DS_Store
+Thumbs.db

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}About — skipthe.com{% endblock %}
+{% block masthead_title %}About skipthe.com{% endblock %}
+{% block masthead_tagline %}Useful local news, with the noise stripped out.{% endblock %}
+{% block content %}
+  <article class="prose">
+    <p>
+      skipthe.com surfaces hyperlocal news that actually matters — government announcements,
+      development decisions, public-safety incidents, school updates, business changes, and
+      events — and skips the ads, navigation links, and noise that clutter most local sources.
+    </p>
+
+    <h2>How it works</h2>
+    <p>
+      Every 30 minutes, an automated pipeline pulls the latest items from a curated list of
+      public hyperlocal sources (county sites, school district pages, local media, public
+      records, federated social channels). Each item is reviewed by an AI moderator that decides
+      whether it's relevant, what category it belongs to, and how trustworthy the source is.
+      Survivors land on this site.
+    </p>
+    <p>
+      The site is regenerated from scratch every cycle. We never republish full article bodies —
+      every item links straight back to the original source.
+    </p>
+
+    <h2>The AI disclaimer</h2>
+    <p>
+      Moderation is fully automated. There is no human reviewing each item before it's published.
+      The model is conservative by design — it errs on the side of leaving things out — but it
+      will sometimes include something it shouldn't, or miss something it should have surfaced.
+    </p>
+    <p>
+      Items labeled <em>unverified</em> come from sources we can't fully vouch for (community
+      posts, secondhand reports). Treat them accordingly.
+    </p>
+    <p>
+      If something looks wrong, please <a href="/contact">let us know</a>. We aim to respond
+      within 48 hours.
+    </p>
+
+    <h2>Cost and money</h2>
+    <p>
+      The site is free to read and free to share. There are no ads. Running it costs a small
+      amount per month (a server and AI tokens). If donations cover that, great; if not, we'll
+      figure it out. Either way, the price stays at zero.
+    </p>
+
+    <h2>Coverage</h2>
+    <p>
+      Today: <a href="/nocatee/">Nocatee, FL</a>. More neighborhoods will follow once this one
+      is genuinely useful. If you want your neighborhood covered,
+      <a href="/contact">tell us</a> what sources matter.
+    </p>
+  </article>
+{% endblock %}

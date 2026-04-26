@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Contact — skipthe.com{% endblock %}
+{% block masthead_title %}Contact{% endblock %}
+{% block masthead_tagline %}Concerns, corrections, source suggestions.{% endblock %}
+{% block content %}
+  <div class="notice">
+    Use this form for anything: take-down requests, factual corrections, source suggestions,
+    new neighborhood requests. Messages reach <strong>{{ contact_email }}</strong>. We aim to
+    respond within 48 hours.
+  </div>
+
+  {% if contact_form_key %}
+    <form class="contact" action="{{ contact_form_action }}" method="POST">
+      <input type="hidden" name="access_key" value="{{ contact_form_key }}">
+      <input type="hidden" name="subject" value="skipthe.com contact form">
+      <input type="hidden" name="from_name" value="skipthe.com contact form">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <label for="name">Your name <span class="req">*</span></label>
+      <input id="name" type="text" name="name" required>
+
+      <label for="email">Your email <span class="req">*</span></label>
+      <input id="email" type="email" name="email" required>
+
+      <label for="website">Your website (optional, helps us verify identity)</label>
+      <input id="website" type="url" name="website" placeholder="https://">
+
+      <label for="item_url">URL of the item this is about (optional)</label>
+      <input id="item_url" type="url" name="item_url" placeholder="https://skipthe.com/...">
+
+      <label for="message">Message <span class="req">*</span></label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+  {% else %}
+    <div class="notice">
+      The contact form isn't wired up yet. In the meantime, please email
+      <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> directly.
+    </div>
+  {% endif %}
+{% endblock %}

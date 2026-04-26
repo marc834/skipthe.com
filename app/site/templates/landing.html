@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}skipthe.com — hyperlocal news, no noise{% endblock %}
+{% block content %}
+  <div class="disclaimer">
+    Curated by an AI moderator from public hyperlocal sources. Free to read. Free to share.
+  </div>
+
+  <h2>Neighborhoods</h2>
+  <ul>
+    {% for n in neighborhoods %}
+      <li><a href="/{{ n.key }}/">{{ n.display_name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <p style="color:var(--fg-muted);font-size:14px;margin-top:32px">
+    More neighborhoods are coming. Want yours covered? <a href="/contact">Get in touch.</a>
+  </p>
+{% endblock %}
