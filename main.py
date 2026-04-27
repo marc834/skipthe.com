@@ -3,6 +3,7 @@ import yaml
 from dotenv import load_dotenv
 from app.collectors.rss_collector import collect_rss
 from app.collectors.webpage_collector import collect_webpage
+from app.collectors.reddit_collector import collect_reddit
 from app.db.database import get_conn, upsert_item, update_ai_result
 from app.ai.classifier import classify_item
 from app.rss import generate_feeds
@@ -21,13 +22,16 @@ def run():
     neighborhood_key = os.getenv("NEIGHBORHOOD", "nocatee")
     neighborhood = cfg["neighborhoods"][neighborhood_key]
 
+    collectors = {
+        "rss": collect_rss,
+        "reddit": collect_reddit,
+        "webpage": collect_webpage,
+    }
     collected = []
     for source in cfg["feeds"]:
+        collector = collectors.get(source.get("type"), collect_webpage)
         try:
-            if source.get("type") == "rss":
-                collected.extend(collect_rss(source))
-            else:
-                collected.extend(collect_webpage(source))
+            collected.extend(collector(source))
         except Exception as e:
             print(f"Collector failed for {source['name']}: {e}")
 

@@ -28,11 +28,23 @@ Generic HTML page. The collector pulls every `<a href>` with link text ≥ 12 ch
 
 The webpage collector caps output at 30 items per run and dedupes by URL.
 
+### `reddit`
+
+Public-subreddit posts via Reddit's `/.json` endpoint. No auth required for reads. Requires a descriptive `User-Agent` (Reddit blocks generic ones). Implemented in `app/collectors/reddit_collector.py`.
+
+```yaml
+- name: "Reddit r/Nocatee"
+  url: "https://www.reddit.com/r/Nocatee/"
+  type: "reddit"
+  credibility: "unverified"
+```
+
+The collector takes the top 25 posts, skips stickied (mod) posts, and uses the post's reddit permalink as the item URL.
+
 ### Future: per-channel collectors
 
 These need their own modules in `app/collectors/` and a new `type:` value:
 
-- **`reddit`** — Reddit's JSON API (e.g. `r/Nocatee/.json`). Public, no auth for read, but rate-limited. Map post → item.
 - **`mastodon` / `bluesky`** — public timelines via their respective APIs. Federated channels are the most scrape-friendly social option.
 - **`nextdoor`** — no public API, login-walled. Hard to do well; skip until someone makes a real case.
 - **`facebook` groups/pages** — Meta has aggressively closed scraping paths. Realistically out of reach without API access (which requires app review).

@@ -44,11 +44,16 @@ The core deliverable. The goal: *one neighborhood that's actually good, with a r
 
 ## Phase 2 — Expand sources
 
-- [ ] Reddit collector (JSON API, public subreddits)
+- [x] Reddit collector (JSON API, public subreddits) — shipped, see `app/collectors/reddit_collector.py`
+- [ ] **User-submitted tips form** — workaround for content from auth-walled platforms (Nextdoor, Facebook groups). Volunteers paste a URL/description/screenshot link into a form; pipeline classifies and considers for inclusion. Sidesteps ToS issues entirely (humans bring items, not bots) and captures the high-value Nextdoor/FB signal we'd otherwise lose.
 - [ ] Mastodon / Bluesky collector for federated public timelines
-- [ ] Mailbox collector for civic alert mailing lists (IMAP)
-- [ ] YouTube channel feeds via the existing `rss` collector (no new code, just `sources.yaml` entries)
+- [ ] Mailbox collector for civic alert mailing lists (IMAP) — Code Red, Nixle, county alerts
+- [ ] YouTube channel feeds via the existing `rss` collector (no new code, just `sources.yaml` entries with `https://www.youtube.com/feeds/videos.xml?channel_id=<ID>`)
 - [ ] Per-source quality review at one-month mark — drop sources with no `include=1` items in 30 days
+
+### Why we won't build automated Facebook / Nextdoor scraping
+
+Even with a willing volunteer's account: ToS violation, account-ban risk (which kills the volunteer's personal account too), credential-storage liability, and privacy violation against original posters whose content was shared with a smaller audience. The user-submitted tips form above is the right architecture for this signal.
 
 ## Phase 3 — Multi-neighborhood
 
