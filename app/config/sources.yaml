@@ -2,6 +2,7 @@ neighborhoods:
   nocatee:
     display_name: "Nocatee, FL"
     keywords:
+      # Core Nocatee identifiers
       - nocatee
       - ponte vedra
       - st. johns county
@@ -12,6 +13,21 @@ neighborhoods:
       - nocatee parkway
       - crosswater
       - town center
+      # Surrounding area & roads (catches stories that affect Nocatee
+      # without naming it directly — police chase on I-95, A1A closure, etc.)
+      - st. augustine
+      - st augustine
+      - world golf village
+      - julington creek
+      - vilano beach
+      - palm coast
+      - duval county
+      - i-95
+      - i 95
+      - a1a
+      - first coast
+      - northeast florida
+      - ne florida
 categories:
   crime-safety:
     keywords: [sheriff, police, arrest, crash, fire, rescue, missing, fraud, safety, emergency]
