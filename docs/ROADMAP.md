@@ -45,7 +45,7 @@ The core deliverable. The goal: *one neighborhood that's actually good, with a r
 ## Phase 2 — Expand sources
 
 - [x] Reddit collector (JSON API, public subreddits) — shipped, see `app/collectors/reddit_collector.py`
-- [ ] **User-submitted tips form** — workaround for content from auth-walled platforms (Nextdoor, Facebook groups). Volunteers paste a URL/description/screenshot link into a form; pipeline classifies and considers for inclusion. Sidesteps ToS issues entirely (humans bring items, not bots) and captures the high-value Nextdoor/FB signal we'd otherwise lose.
+- [x] **User-submitted tips form** — shipped at `/tip`. Submissions email to `m@skipthe.com` via the same Web3Forms key as the contact form (different `subject` to filter in the inbox). Triage is manual today; a CLI helper to insert approved tips into the items DB is in tech debt below.
 - [ ] Mastodon / Bluesky collector for federated public timelines
 - [ ] Mailbox collector for civic alert mailing lists (IMAP) — Code Red, Nixle, county alerts
 - [ ] YouTube channel feeds via the existing `rss` collector (no new code, just `sources.yaml` entries with `https://www.youtube.com/feeds/videos.xml?channel_id=<ID>`)
@@ -104,3 +104,4 @@ Most big questions are settled. These are still live:
 - `OUT_DIR` in `generate_feeds.py` is hardcoded to `nocatee` — blocks Phase 3.
 - `webpage_collector.py` harvests every link ≥ 12 chars; a smarter heuristic would cut classifier load.
 - `main.py`'s `LIMIT 50` per run is a fixed cap — fine now, will need to scale (or batch into the classifier) once there are multiple neighborhoods.
+- `tools/insert_tip.py` — small CLI to insert approved tip submissions into `items` as `unverified` rows so they flow through the same publish pipeline. Today operators do this via raw SQL.

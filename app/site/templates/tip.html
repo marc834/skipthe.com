@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Submit a tip — skipthe.com{% endblock %}
+{% block masthead_title %}Submit a tip{% endblock %}
+{% block masthead_tagline %}Help us cover what we miss.{% endblock %}
+{% block content %}
+  <div class="notice">
+    Saw something local that hasn't shown up on the site? Use this form. The most useful tips
+    are things we can't easily scrape — Nextdoor reports, Facebook group posts, group-text
+    rumors of road closures or police activity, business openings and closings you noticed in
+    person. Tips reach <strong>{{ contact_email }}</strong>.
+  </div>
+
+  <article class="prose">
+    <p style="font-size:14px;color:var(--fg-muted)">
+      Anonymous tips are fine. If you give us your email we may follow up with questions.
+      Tips that get published are tagged <em>unverified</em> unless we can corroborate them
+      against an official source.
+    </p>
+  </article>
+
+  {% if contact_form_key %}
+    <form class="contact" action="{{ contact_form_action }}" method="POST">
+      <input type="hidden" name="access_key" value="{{ contact_form_key }}">
+      <input type="hidden" name="subject" value="skipthe.com tip submission">
+      <input type="hidden" name="from_name" value="skipthe.com tip form">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <label for="what">What happened? <span class="req">*</span></label>
+      <textarea id="what" name="what" required placeholder="e.g. Police chase ended at the Publix on Nocatee Pkwy around 3pm"></textarea>
+
+      <label for="when_">When?</label>
+      <input id="when_" type="text" name="when" placeholder="e.g. this morning, yesterday afternoon, ongoing">
+
+      <label for="where_">Where?</label>
+      <input id="where_" type="text" name="where" placeholder="Intersection, landmark, or neighborhood">
+
+      <label for="source_url">Source URL (optional — Nextdoor link, news article, screenshot, etc.)</label>
+      <input id="source_url" type="url" name="source_url" placeholder="https://">
+
+      <label for="name">Your name (optional)</label>
+      <input id="name" type="text" name="name">
+
+      <label for="email">Your email (optional, for follow-up)</label>
+      <input id="email" type="email" name="email">
+
+      <button type="submit">Submit tip</button>
+    </form>
+  {% else %}
+    <div class="notice">
+      The tip form isn't wired up yet. In the meantime, please email
+      <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> with what you saw.
+    </div>
+  {% endif %}
+{% endblock %}

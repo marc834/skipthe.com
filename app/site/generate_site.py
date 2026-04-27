@@ -120,7 +120,7 @@ def _render_static_pages(env):
         "contact_email": contact_email,
     }
 
-    for name in ("about", "contact", "legal"):
+    for name in ("about", "contact", "tip", "legal"):
         html = env.get_template(f"{name}.html").render(**context)
         (SITE_DIR / f"{name}.html").write_text(html, encoding="utf-8")
 

@@ -28,6 +28,7 @@ skipthe.com/nocatee/feeds                 RSS index (links to the XML files)
 
 skipthe.com/about                         what this is, who runs it, AI disclaimer
 skipthe.com/contact                       take-down + general inbound (form → m@skipthe.com)
+skipthe.com/tip                           submit a tip (Nextdoor/Facebook signal we can't scrape)
 skipthe.com/legal                         terms, privacy, attribution
 ```
 
@@ -89,6 +90,21 @@ Form posts to a third-party form-to-email service that delivers to `m@skipthe.co
 
 Pick one when implementing. Keep the form action URL in `app/config/sources.yaml` or a small `app/config/site.yaml` so it's not buried in the template.
 
+### Tip page
+
+A second form, separate page (`/tip`), same Web3Forms credentials as `/contact` but a different `subject` so submissions are filterable in the inbox. Captures the high-value Nextdoor / Facebook / group-text signal we can't scrape. Fields:
+
+- What happened (textarea, required)
+- When (text, optional)
+- Where (text, optional)
+- Source URL (URL, optional — Nextdoor link, screenshot, etc.)
+- Your name (optional)
+- Your email (optional, for follow-up)
+
+Linked from a `.notice` banner on every neighborhood page ("Saw something we missed? Submit a tip.") and from the footer.
+
+Triage workflow today: tips email to `m@skipthe.com`, the operator manually decides whether to surface them, and inserts via SQL on the VM. A small CLI helper (`tools/insert_tip.py`) is on the roadmap to make that one-line.
+
 ## Templating
 
 Add `jinja2` to `requirements.txt`. Templates live in `app/site/templates/`:
@@ -97,8 +113,10 @@ Add `jinja2` to `requirements.txt`. Templates live in `app/site/templates/`:
 app/site/templates/
 ├── base.html            shared header/footer, disclaimer, nav
 ├── neighborhood.html    landing + category pages (same template, different filter)
+├── landing.html         top-level / lists neighborhoods
 ├── about.html
 ├── contact.html
+├── tip.html             user-submitted tip form
 └── legal.html
 ```
 

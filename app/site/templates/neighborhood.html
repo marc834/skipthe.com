@@ -9,6 +9,12 @@
     <a href="/contact">contact page</a> if something needs attention.
   </div>
 
+  <div class="notice">
+    <strong>Saw something we missed?</strong> Police activity, road closures, business changes,
+    anything local — <a href="/tip">submit a tip</a>. Real neighbor reports are how we cover
+    what's behind paywalls or only on Nextdoor and Facebook.
+  </div>
+
   <nav class="cats" aria-label="Categories">
     <a href="/{{ neighborhood_key }}/" class="{% if active_category == 'all' %}active{% endif %}">All</a>
     {% for cat_key, cat_label in categories %}
