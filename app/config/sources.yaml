@@ -39,35 +39,58 @@ categories:
     keywords: [restaurant, opening, closing, business, chamber, store, retail]
   events:
     keywords: [event, festival, meeting, workshop, concert, market]
+# Sources are scraped each pipeline run.
+# `bypass_prefilter: true` means every collected item is sent to the AI moderator
+# for include/exclude — use for sources that are already geographically scoped
+# (county sites, neighborhood newspapers, local sheriff/fire). Without it, the
+# keyword prefilter drops items whose title doesn't mention a neighborhood term,
+# which is wrong for sources that ARE the neighborhood.
 feeds:
   - name: "St. Johns County News"
     url: "https://www.sjcfl.us/news/"
     type: "webpage"
     credibility: "official"
+    bypass_prefilter: true
   - name: "St. Johns County School District"
     url: "https://www.stjohns.k12.fl.us/news/"
     type: "webpage"
     credibility: "official"
+    bypass_prefilter: true
   - name: "St. Johns County Sheriff's Office"
     url: "https://www.sjso.org/news-stories/"
     type: "webpage"
     credibility: "official"
-  - name: "News4JAX Local"
-    url: "https://www.news4jax.com/arc/outboundfeeds/rss/category/news/local/?outputType=xml&size=10"
-    type: "rss"
-    credibility: "local-media"
+    bypass_prefilter: true
+  - name: "St. Johns County Fire Rescue"
+    url: "https://www.sjcfl.us/news/?title=&month=&yr=&term=1"
+    type: "webpage"
+    credibility: "official"
+    bypass_prefilter: true
   - name: "Ponte Vedra Recorder - Nocatee"
     url: "https://www.pontevedrarecorder.com/nocatee/"
     type: "webpage"
     credibility: "local-media"
+    bypass_prefilter: true
   - name: "Reddit r/Nocatee"
     url: "https://www.reddit.com/r/Nocatee/"
     type: "reddit"
     credibility: "unverified"
+    bypass_prefilter: true
   - name: "Reddit r/StJohnsCounty"
     url: "https://www.reddit.com/r/StJohnsCounty/"
     type: "reddit"
     credibility: "unverified"
+    bypass_prefilter: true
+  # Below: regional / statewide sources — keep prefilter so we don't pay tokens
+  # on Tampa or Tallahassee items. The keyword list narrows them down.
+  - name: "News4JAX Local"
+    url: "https://www.news4jax.com/arc/outboundfeeds/rss/category/news/local/?outputType=xml&size=10"
+    type: "rss"
+    credibility: "local-media"
+  - name: "News4JAX Crime"
+    url: "https://www.news4jax.com/arc/outboundfeeds/rss/category/news/local/crime/?outputType=xml&size=10"
+    type: "rss"
+    credibility: "local-media"
   - name: "Reddit r/Jacksonville"
     url: "https://www.reddit.com/r/Jacksonville/new/"
     type: "reddit"
@@ -80,11 +103,3 @@ feeds:
     url: "https://www.flhsmv.gov/media/press-releases/"
     type: "webpage"
     credibility: "official"
-  - name: "St. Johns County Fire Rescue"
-    url: "https://www.sjcfl.us/news/?title=&month=&yr=&term=1"
-    type: "webpage"
-    credibility: "official"
-  - name: "News4JAX Crime"
-    url: "https://www.news4jax.com/arc/outboundfeeds/rss/category/news/local/crime/?outputType=xml&size=10"
-    type: "rss"
-    credibility: "local-media"

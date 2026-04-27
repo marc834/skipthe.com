@@ -27,19 +27,23 @@ def run():
         "reddit": collect_reddit,
         "webpage": collect_webpage,
     }
-    collected = []
     for source in cfg["feeds"]:
         collector = collectors.get(source.get("type"), collect_webpage)
         try:
-            collected.extend(collector(source))
+            items = collector(source)
         except Exception as e:
             print(f"Collector failed for {source['name']}: {e}")
-
-    for item in collected:
-        if not basic_keyword_prefilter(item, neighborhood):
             continue
-        item["neighborhood"] = neighborhood_key
-        upsert_item(item)
+
+        # Sources marked `bypass_prefilter: true` are already geographically scoped
+        # (county sites, neighborhood papers). Skip the keyword check and let the AI
+        # decide relevance for each item.
+        bypass = source.get("bypass_prefilter", False)
+        for item in items:
+            if not bypass and not basic_keyword_prefilter(item, neighborhood):
+                continue
+            item["neighborhood"] = neighborhood_key
+            upsert_item(item)
 
     with get_conn() as conn:
         rows = conn.execute("SELECT * FROM items WHERE ai_summary IS NULL LIMIT 50").fetchall()
