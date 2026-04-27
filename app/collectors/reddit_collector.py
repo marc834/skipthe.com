@@ -15,7 +15,7 @@ def collect_reddit(source: dict):
     """
     url = source["url"].rstrip("/")
     if not url.endswith(".json"):
-        url = url + ".json"
+        url = url + "/.json"
 
     resp = requests.get(url, headers=HEADERS, timeout=20)
     resp.raise_for_status()
