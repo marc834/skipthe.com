@@ -1,9 +1,7 @@
 import json
 import os
+from functools import lru_cache
 from openai import OpenAI
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 SYSTEM = """You classify hyperlocal news items for a free neighborhood RSS feed.
 Return only valid JSON. Be conservative. Exclude ads, generic pages, navigation links,
@@ -12,6 +10,14 @@ Never present allegations as fact. Label unverified claims clearly.
 Categories: crime-safety, development, schools, business, events, community-chatter, politics, other.
 Credibility: official, local-media, public-record, reported, unverified.
 """
+
+
+# Lazy: don't read env vars at import time. main.py calls load_dotenv() after imports,
+# so the env isn't populated yet when this module first loads.
+@lru_cache(maxsize=1)
+def _client():
+    return OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 def classify_item(item: dict, neighborhood_config: dict):
     user = {
@@ -26,8 +32,8 @@ def classify_item(item: dict, neighborhood_config: dict):
             "reason": "brief reason for include/exclude"
         }
     }
-    resp = client.chat.completions.create(
-        model=MODEL,
+    resp = _client().chat.completions.create(
+        model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
         temperature=0.1,
         messages=[
             {"role": "system", "content": SYSTEM},
